@@ -8,14 +8,63 @@ body {
   font-family: "Open Sans", sans-serif;
 }
 
+.mainWrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  // justify-content:space-between;
+  width: 100vw;
+  margin-inline: auto;
+}
+
 .titleHeader {
-  text-align: center;
+  text-align: left;
   padding-top: 25%;
+
   h1 {
-    font-size: 42px;
+    font-size: 45px;
+    font-weight: 400;
+    line-height: 52px;
     margin-bottom: 24px;
   }
+
   a {
     display: inline-block;
   }
+
+  span {
+    color: #b23386;
+    font-weight: 600;
+  }
+}
+
+.switchStyling {
+  display: flex;
+  flex-direction: row;
+
+  p {
+    margin-right: 50xp;
+  }
+}
+
+.formStyling {
+  display: flex;
+  flex-direction: column;
+}
+
+.policyContainer {
+  display: flex;
+  flex-direction: row;
+}
+
+.leftSide {
+  background-color: #b23386;
+  margin-left: auto;
+}
+
+.rightSide {
+  display: flex;
+  flex-direction: row;
+  background-color: #b23386;
+  margin-right: auto;
 }
