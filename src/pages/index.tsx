@@ -1,7 +1,7 @@
 import * as React from "react";
 import type { HeadFC, PageProps } from "gatsby";
 import { Container } from "../components/Container/Container";
-import { Link } from "nerdux-ui-system";
+import { Button, Checkbox, Link, Switch, TextField } from "nerdux-ui-system";
 
 import * as styles from "./index.module.scss";
 
@@ -10,13 +10,40 @@ const IndexPage: React.FC<PageProps> = () => {
     <main>
       <Container>
         <header className={styles.titleHeader}>
-          <h1>Lead generator project</h1>
-          <Link
-            to={"https://nerdux.nerdbord.io/?path=/story/inputs-button--button"}
-            target={"_blank"}
-          >
-            Open UI components documentation
-          </Link>
+          <h1>
+            Join the Gameboy <br />
+            <span>waiting list</span>
+          </h1>
+          <div>
+            <p>I swear, I’m a classic gameboy fan</p>
+            <Switch></Switch>
+          </div>
+
+          <form action="">
+            <TextField
+              type={"text"}
+              label={"Name"}
+              placeholder={"e.g. Richard Parker"}
+            ></TextField>
+            <TextField
+              type={"text"}
+              label={"Email"}
+              placeholder={"e.g. richard@gmail.com"}
+            ></TextField>
+            <div>
+              <Checkbox></Checkbox>
+              <p>I have read and accept the a</p>
+              <Link
+                to={
+                  "https://nerdux.nerdbord.io/?path=/story/inputs-button--button"
+                }
+                target={"_blank"}
+              >
+                privacy policy
+              </Link>
+            </div>
+            <Button>Sign me up!</Button>
+          </form>
         </header>
       </Container>
     </main>
@@ -25,4 +52,4 @@ const IndexPage: React.FC<PageProps> = () => {
 
 export default IndexPage;
 
-export const Head: HeadFC = () => <title>Home Page</title>;
+export const Head: HeadFC = () => <title>Gameboy Classic</title>;
