@@ -1,8 +1,12 @@
 .container {
   min-width: 550px;
   max-width: 1200px;
-  // margin: 0 auto;
-  padding: 0 24px;
+  margin: 0 auto;
+  padding: 0 72px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
   @media only screen and (max-width: 768px) {
     padding: 0 8px;
   }

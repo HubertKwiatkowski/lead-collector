@@ -11,10 +11,32 @@ body {
 .mainWrapper {
   display: flex;
   flex-direction: row;
-  align-items: center;
-  // justify-content:space-between;
+  justify-content: space-evenly;
   width: 100vw;
-  margin-inline: auto;
+}
+
+.leftSide {
+  display: flex;
+  flex-direction: row;
+  background: #b23386;
+  max-width: 15vw;
+  width: 100%;
+
+  :first-child {
+    margin-left: auto;
+  }
+}
+
+.rightSide {
+  display: flex;
+  flex-direction: row;
+  background: #b23386;
+  padding-right: 200px;
+  width: 100%;
+
+  :last-child {
+    margin-right: auto;
+  }
 }
 
 .titleHeader {
@@ -29,7 +51,7 @@ body {
   }
 
   a {
-    display: inline-block;
+    display: center;
   }
 
   span {
@@ -41,30 +63,27 @@ body {
 .switchStyling {
   display: flex;
   flex-direction: row;
-
-  p {
-    margin-right: 50xp;
-  }
 }
 
 .formStyling {
   display: flex;
   flex-direction: column;
+  width: 400px;
+
+  // :nth-child(-n + 2) {
+  //   margin: 5px 0;
+  // width: 100%;
+  // }
+
+  // div:last-child {
+  //   width: 150px;
+  //   margin-top:50px;
+  // }
 }
 
 .policyContainer {
   display: flex;
   flex-direction: row;
-}
-
-.leftSide {
-  background-color: #b23386;
-  margin-left: auto;
-}
-
-.rightSide {
-  display: flex;
-  flex-direction: row;
-  background-color: #b23386;
-  margin-right: auto;
+  justify-content: flex-start;
+  align-items: center;
 }
