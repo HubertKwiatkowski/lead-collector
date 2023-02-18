@@ -16,32 +16,66 @@ body {
 }
 
 .leftSide {
-  display: flex;
-  flex-direction: row;
-  background: #b23386;
   max-width: 15vw;
   width: 100%;
+  height: 100vh;
 
   :first-child {
     margin-left: auto;
   }
 }
 
-.rightSide {
+.leftSideActive {
   display: flex;
   flex-direction: row;
   background: #b23386;
-  padding-right: 200px;
+}
+
+.leftSideActive div {
+  display: flex;
+  flex-direction: row;
+  height: 100vh;
+}
+
+.leftSideInactive {
+  display: flex;
+  flex-direction: row;
+  background: #c9c5ca;
+}
+
+.leftSideInactive div {
+  display: none;
+}
+
+.rightSide {
   width: 100%;
+  height: 100vh;
 
   :last-child {
     margin-right: auto;
   }
 }
 
+.rightSideActive {
+  background: #b23386;
+}
+
+.rightSideActive div {
+  display: flex;
+  flex-direction: row;
+  height: 100vh;
+}
+
+.rightSideInactive {
+  background: #c9c5ca;
+}
+
+.rightSideInactive div {
+  display: none;
+}
+
 .titleHeader {
   text-align: left;
-  padding-top: 25%;
 
   h1 {
     font-size: 45px;
@@ -61,24 +95,23 @@ body {
 }
 
 .switchStyling {
+  height: 40px;
   display: flex;
   flex-direction: row;
+  align-items: center;
+}
+
+.textFields {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  height: 180px;
+  padding-block: 10px;
 }
 
 .formStyling {
   display: flex;
   flex-direction: column;
-  width: 400px;
-
-  // :nth-child(-n + 2) {
-  //   margin: 5px 0;
-  // width: 100%;
-  // }
-
-  // div:last-child {
-  //   width: 150px;
-  //   margin-top:50px;
-  // }
 }
 
 .policyContainer {
@@ -86,4 +119,9 @@ body {
   flex-direction: row;
   justify-content: flex-start;
   align-items: center;
+  margin-left: 10px;
+}
+
+.signIn {
+  margin-top: 50px;
 }

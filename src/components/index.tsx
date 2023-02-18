@@ -1,4 +1,4 @@
 import { Container } from "./Container/Container";
-import { Gameboy } from "./Gameboy/Gameboy";
+import { OneColumn } from "./Gameboy/Gameboy";
 
-export { Container, Gameboy };
+export { Container, OneColumn };
