@@ -2,6 +2,7 @@ import * as React from "react";
 import type { HeadFC, PageProps } from "gatsby";
 import { Container, OneColumn } from "../components/";
 import { Button, Checkbox, Link, Switch, TextField } from "nerdux-ui-system";
+import { PatternColumn } from "../images/PatternColumn";
 
 import * as styles from "./index.module.scss";
 
@@ -56,7 +57,7 @@ const IndexPage: React.FC<PageProps> = () => {
                 type={"text"}
                 label={"Name"}
                 placeholder={"e.g. Richard Parker"}
-                // disabled={true}
+                disabled={true}
               />
               <TextField
                 id={"email"}
@@ -66,7 +67,7 @@ const IndexPage: React.FC<PageProps> = () => {
                 type={"text"}
                 label={"Email"}
                 placeholder={"e.g. richard@gmail.com"}
-                // disabled={true}
+                disabled={true}
               />
             </div>
             <div className={styles.policyWrapper}>

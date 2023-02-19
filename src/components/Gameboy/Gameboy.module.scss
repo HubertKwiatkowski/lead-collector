@@ -1,47 +1,35 @@
 .gameboy {
-  min-width: 80px;
-  margin: 0 35px 40px 32px;
+  min-width: 156px;
 }
 
 .gameboy svg {
   position: fixed;
-  animation-name: startUp;
-  animation-timing-function: linear;
-  animation-duration: 10s;
-  animation-delay: 1s;
-  animation-iteration-count: infinite;
 }
 
 .startDown svg {
-  top: -50px;
-  animation-name: startDown;
+  top: 0;
+  animation: startDown 10s 1s linear infinite alternate both;
 }
 
 .startUp svg {
-  bottom: -100px;
-  animation-name: startUp;
+  bottom: 0;
+  animation: startUp 10s 1s linear infinite alternate both;
 }
 
 @keyframes startDown {
   0% {
-    transform: translateY(-50px);
-  }
-  50% {
-    transform: translateY(calc(100vh - 650px));
+    transform: translateY(-500px);
   }
   100% {
-    transform: translateY(-50px);
+    transform: translateY(-100px);
   }
 }
 
 @keyframes startUp {
   0% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(calc((100vh - 600px) * (-1)));
+    transform: translateY(500px);
   }
   100% {
-    transform: translateY(0);
+    transform: translateY(100px);
   }
 }

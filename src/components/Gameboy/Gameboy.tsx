@@ -1,7 +1,7 @@
 import * as React from "react";
 import { PropsWithChildren } from "react";
 import * as styles from "./Gameboy.module.scss";
-import { Gameboys } from "../../images";
+import { PatternColumn } from "../../images/PatternColumn";
 
 interface OneColumnProps {
   dataMove?: "up" | "down";
@@ -16,8 +16,7 @@ export const OneColumn = ({
 
   return (
     <div className={gameboyDynamicClasses}>
-      <Gameboys />
-      <Gameboys />
+      <PatternColumn />
     </div>
   );
 };

@@ -6,6 +6,7 @@
 
 body {
   font-family: "Open Sans", sans-serif;
+  overflow: hidden;
 }
 
 .mainWrapper {
@@ -26,8 +27,6 @@ body {
 }
 
 .leftSideActive {
-  display: flex;
-  flex-direction: row;
   background: #b23386;
 
   div {
@@ -38,8 +37,6 @@ body {
 }
 
 .leftSideInactive {
-  display: flex;
-  flex-direction: row;
   background: #c9c5ca;
 
   div {
