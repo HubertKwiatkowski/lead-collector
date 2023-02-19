@@ -17,6 +17,7 @@ export const OneColumn = ({
   return (
     <div className={gameboyDynamicClasses}>
       <Gameboys />
+      <Gameboys />
     </div>
   );
 };

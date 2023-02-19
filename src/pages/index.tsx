@@ -16,14 +16,14 @@ const IndexPage: React.FC<PageProps> = () => {
 
   const leftSideDynamicClasses = [
     styles.leftSide,
-    // styles.leftSideActive,
-    styles.leftSideInactive,
+    styles.leftSideActive,
+    // styles.leftSideInactive,
   ].join(" ");
 
   const rightSideDynamicClasses = [
     styles.rightSide,
-    // styles.rightSideActive,
-    styles.rightSideInactive,
+    styles.rightSideActive,
+    // styles.rightSideInactive,
   ].join(" ");
 
   return (
@@ -46,8 +46,8 @@ const IndexPage: React.FC<PageProps> = () => {
             <Switch onChange={switchHandle} id={"switch"} />
           </div>
 
-          <form className={styles.formStyling} action="">
-            <div className={styles.textFields}>
+          <form className={styles.formWrapper} action="">
+            <div className={styles.inputWrapper}>
               <TextField
                 id={"name"}
                 name={"name"}
@@ -56,7 +56,7 @@ const IndexPage: React.FC<PageProps> = () => {
                 type={"text"}
                 label={"Name"}
                 placeholder={"e.g. Richard Parker"}
-                disabled={true}
+                // disabled={true}
               />
               <TextField
                 id={"email"}
@@ -66,10 +66,10 @@ const IndexPage: React.FC<PageProps> = () => {
                 type={"text"}
                 label={"Email"}
                 placeholder={"e.g. richard@gmail.com"}
-                disabled={true}
+                // disabled={true}
               />
             </div>
-            <div className={styles.policyContainer}>
+            <div className={styles.policyWrapper}>
               <Checkbox
                 id={"checbox"}
                 name={"checbox"}
@@ -87,7 +87,7 @@ const IndexPage: React.FC<PageProps> = () => {
                 privacy policy
               </Link>
             </div>
-            <div className={styles.signIn}>
+            <div className={styles.buttonWrapper}>
               <Button onClick={buttonHandle} disabled={true}>
                 Sign me up!
               </Button>

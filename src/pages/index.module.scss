@@ -29,22 +29,22 @@ body {
   display: flex;
   flex-direction: row;
   background: #b23386;
-}
 
-.leftSideActive div {
-  display: flex;
-  flex-direction: row;
-  height: 100vh;
+  div {
+    display: flex;
+    flex-direction: row;
+    height: 100vh;
+  }
 }
 
 .leftSideInactive {
   display: flex;
   flex-direction: row;
   background: #c9c5ca;
-}
 
-.leftSideInactive div {
-  display: none;
+  div {
+    display: none;
+  }
 }
 
 .rightSide {
@@ -58,20 +58,20 @@ body {
 
 .rightSideActive {
   background: #b23386;
-}
 
-.rightSideActive div {
-  display: flex;
-  flex-direction: row;
-  height: 100vh;
+  div {
+    display: flex;
+    flex-direction: row;
+    height: 100vh;
+  }
 }
 
 .rightSideInactive {
   background: #c9c5ca;
-}
 
-.rightSideInactive div {
-  display: none;
+  div {
+    display: none;
+  }
 }
 
 .titleHeader {
@@ -101,20 +101,29 @@ body {
   align-items: center;
 }
 
-.textFields {
+.formWrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.inputWrapper {
   display: flex;
   flex-direction: column;
   justify-content: space-around;
   height: 180px;
   padding-block: 10px;
+
+  // for some reason this doesn not work on my side
+  // > * {
+  //   width: 100%;
+  // }
+
+  input {
+    width: 360px;
+  }
 }
 
-.formStyling {
-  display: flex;
-  flex-direction: column;
-}
-
-.policyContainer {
+.policyWrapper {
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
@@ -122,6 +131,6 @@ body {
   margin-left: 10px;
 }
 
-.signIn {
+.buttonWrapper {
   margin-top: 50px;
 }
