@@ -1,0 +1,35 @@
+.gameboy {
+  min-width: 156px;
+}
+
+.gameboy svg {
+  position: fixed;
+}
+
+.startDown svg {
+  top: 0;
+  animation: startDown 10s 1s linear infinite alternate both;
+}
+
+.startUp svg {
+  bottom: 0;
+  animation: startUp 10s 1s linear infinite alternate both;
+}
+
+@keyframes startDown {
+  0% {
+    transform: translateY(-500px);
+  }
+  100% {
+    transform: translateY(-100px);
+  }
+}
+
+@keyframes startUp {
+  0% {
+    transform: translateY(500px);
+  }
+  100% {
+    transform: translateY(100px);
+  }
+}
