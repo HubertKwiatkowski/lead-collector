@@ -1,8 +1,7 @@
 import * as React from "react";
 import type { HeadFC, PageProps } from "gatsby";
-import { Container, OneColumn } from "../components/";
+import { Container, OneColumn, OneRow } from "../components/";
 import { Button, Checkbox, Link, Switch, TextField } from "nerdux-ui-system";
-import { PatternColumn } from "../images/PatternColumn";
 
 import * as styles from "./index.module.scss";
 
@@ -15,23 +14,26 @@ const IndexPage: React.FC<PageProps> = () => {
 
   const buttonHandle = () => {};
 
-  const leftSideDynamicClasses = [
-    styles.leftSide,
-    styles.leftSideActive,
-    // styles.leftSideInactive,
+  const firstDynamicClasses = [
+    styles.first,
+    styles.firstActive,
+    // styles.firstInactive,
   ].join(" ");
 
-  const rightSideDynamicClasses = [
-    styles.rightSide,
-    styles.rightSideActive,
-    // styles.rightSideInactive,
+  const secondDynamicClasses = [
+    styles.second,
+    styles.secondActive,
+    // styles.secondInactive,
   ].join(" ");
 
   return (
     <main className={styles.mainWrapper}>
-      <aside className={leftSideDynamicClasses}>
-        <div>
+      <aside className={firstDynamicClasses}>
+        <div className={styles.gameboyColumn}>
           <OneColumn dataMove={"down"}></OneColumn>
+        </div>
+        <div className={styles.gameboyRow}>
+          <OneRow dataMove={"left"}></OneRow>
         </div>
       </aside>
       <Container>
@@ -42,7 +44,7 @@ const IndexPage: React.FC<PageProps> = () => {
           </h1>
         </header>
         <section>
-          <div className={styles.switchStyling}>
+          <div className={styles.switchWrapper}>
             <p>I swear, I’m a classic gameboy fan&nbsp;</p>
             <Switch onChange={switchHandle} id={"switch"} />
           </div>
@@ -96,12 +98,15 @@ const IndexPage: React.FC<PageProps> = () => {
           </form>
         </section>
       </Container>
-      <aside className={rightSideDynamicClasses}>
-        <div>
+      <aside className={secondDynamicClasses}>
+        <div className={styles.gameboyColumn}>
           <OneColumn dataMove={"down"}></OneColumn>
           <OneColumn dataMove={"up"}></OneColumn>
           <OneColumn dataMove={"down"}></OneColumn>
           <OneColumn dataMove={"up"}></OneColumn>
+        </div>
+        <div className={styles.gameboyRow}>
+          <OneRow dataMove={"right"}></OneRow>
         </div>
       </aside>
     </main>

@@ -1,0 +1,73 @@
+.gameboy {
+  width: 156px;
+  height: 160px;
+  position: relative;
+}
+
+.gameboy svg {
+  display: none;
+  position: absolute;
+
+  @media only screen and (max-width: 768px) {
+    display: block;
+  }
+}
+
+.startLeft svg {
+  top: 10px;
+  left: -200vw;
+  -webkit-animation: startLeft 6s 1ms linear infinite alternate both;
+  animation: startLeft 6s 1ms linear infinite alternate both;
+}
+
+.startRight svg {
+  // bottom: -15px;
+  bottom: -5px;
+  left: -200vw;
+  -webkit-animation: startRight 6s 1ms linear infinite alternate both;
+  animation: startRight 6s 1ms linear infinite alternate both;
+}
+
+@-webkit-keyframes startLeft {
+  0% {
+    -webkit-transform: translateX(0);
+    transform: translateX(0);
+  }
+  100% {
+    -webkit-transform: translateX(500px);
+    transform: translateX(500px);
+  }
+}
+
+@keyframes startLeft {
+  0% {
+    -webkit-transform: translateX(0);
+    transform: translateX(0);
+  }
+  100% {
+    -webkit-transform: translateX(500px);
+    transform: translateX(500px);
+  }
+}
+
+@-webkit-keyframes startRight {
+  0% {
+    -webkit-transform: translateX(500px);
+    transform: translateX(500px);
+  }
+  100% {
+    -webkit-transform: translateX(100px);
+    transform: translateX(100px);
+  }
+}
+
+@keyframes startRight {
+  0% {
+    -webkit-transform: translateX(500px);
+    transform: translateX(500px);
+  }
+  100% {
+    -webkit-transform: translateX(100px);
+    transform: translateX(100px);
+  }
+}
