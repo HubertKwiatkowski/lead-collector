@@ -6,10 +6,15 @@
   flex-direction: column;
   justify-content: center;
 
-  // @media only screen and (max-width: 1240px) {
-  //   min-width: 450px;
-  //   padding: 0 24px;
-  // }
+  @media only screen and (max-width: 1240px) {
+    min-width: 450px;
+    padding: 0 24px;
+  }
+
+  @media only screen and (max-width: 1050px) {
+    min-width: 400px;
+    padding: 0 16px;
+  }
 
   @media only screen and (max-width: 768px) {
     min-width: 340px;
