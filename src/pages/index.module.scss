@@ -14,60 +14,95 @@ body {
   flex-direction: row;
   justify-content: space-evenly;
   width: 100vw;
-}
+  overflow: hidden;
 
-.leftSide {
-  max-width: 15vw;
-  width: 100%;
-  height: 100vh;
-
-  :first-child {
-    margin-left: auto;
+  @media only screen and (max-width: 768px) {
+    flex-direction: column;
+    align-items: center;
   }
 }
 
-.leftSideActive {
+.first {
+  height: 100vh;
+  padding-left: 10vw;
+
+  @media only screen and (max-width: 1240px) {
+    padding-left: 15vw;
+  }
+
+  @media only screen and (max-width: 1050px) {
+    padding-left: 35vw;
+  }
+
+  @media only screen and (max-width: 768px) {
+    width: 100vw;
+    height: 160px;
+    padding: 0;
+  }
+}
+
+.firstActive {
+  background: #b23386;
+}
+
+.firstInactive {
+  background: #c9c5ca;
+
+  div svg {
+    display: none;
+  }
+}
+
+.second {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  margin-right: auto;
+
+  @media only screen and (max-width: 1240px) {
+    margin-right: 0;
+  }
+
+  @media only screen and (max-width: 768px) {
+    width: 100vw;
+    height: 160px;
+  }
+}
+
+.secondActive {
   background: #b23386;
 
   div {
     display: flex;
     flex-direction: row;
     height: 100vh;
+
+    @media only screen and (max-width: 768px) {
+      height: 160px;
+    }
   }
 }
 
-.leftSideInactive {
+.secondInactive {
   background: #c9c5ca;
 
-  div {
+  div svg {
     display: none;
   }
 }
 
-.rightSide {
-  width: 100%;
-  height: 100vh;
-
-  :last-child {
-    margin-right: auto;
+.gameboyColumn {
+  div svg {
+    @media only screen and (max-width: 768px) {
+      display: none;
+    }
   }
 }
 
-.rightSideActive {
-  background: #b23386;
-
-  div {
-    display: flex;
-    flex-direction: row;
-    height: 100vh;
-  }
-}
-
-.rightSideInactive {
-  background: #c9c5ca;
-
-  div {
-    display: none;
+.gameboyRow {
+  @media only screen and (max-width: 768px) {
+    display: block;
+    width: 100vw;
   }
 }
 
@@ -78,24 +113,34 @@ body {
     font-size: 45px;
     font-weight: 400;
     line-height: 52px;
-    margin-bottom: 24px;
-  }
-
-  a {
-    display: center;
+    margin-bottom: 44px;
   }
 
   span {
     color: #b23386;
     font-weight: 600;
   }
+
+  @media only screen and (max-width: 1050px) {
+    h1 {
+      font-size: 36px;
+      line-height: 44px;
+      margin-bottom: 26px;
+    }
+  }
 }
 
-.switchStyling {
+.switchWrapper {
   height: 40px;
   display: flex;
   flex-direction: row;
   align-items: center;
+  margin-bottom: 26px;
+
+  @media only screen and (max-width: 768px) {
+    height: 24px;
+    margin-bottom: 16px;
+  }
 }
 
 .formWrapper {
@@ -109,14 +154,21 @@ body {
   justify-content: space-around;
   height: 180px;
   padding-block: 10px;
+  margin-bottom: 16px;
 
-  // for some reason this doesn not work on my side
+  // for some reason this doesn't not work on my side
   // > * {
   //   width: 100%;
   // }
 
   input {
     width: 360px;
+  }
+
+  @media only screen and (max-width: 768px) {
+    input {
+      width: 340px;
+    }
   }
 }
 
@@ -126,8 +178,14 @@ body {
   justify-content: flex-start;
   align-items: center;
   margin-left: 10px;
+  font-size: 14px;
+  line-height: 20px;
 }
 
 .buttonWrapper {
   margin-top: 50px;
+
+  @media only screen and (max-width: 768px) {
+    margin-block: 30px;
+  }
 }
