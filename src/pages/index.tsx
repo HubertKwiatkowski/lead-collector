@@ -1,4 +1,5 @@
 import * as React from "react";
+import { useState } from "react";
 import type { HeadFC, PageProps } from "gatsby";
 import { Container, OneColumn, OneRow } from "../components/";
 import { Button, Checkbox, Link, Switch, TextField } from "nerdux-ui-system";
@@ -6,7 +7,21 @@ import { Button, Checkbox, Link, Switch, TextField } from "nerdux-ui-system";
 import * as styles from "./index.module.scss";
 
 const IndexPage: React.FC<PageProps> = () => {
-  const switchHandle = () => {};
+  const [switchActive, setSwitchActive] = useState(false);
+
+  const getFirstTheme = switchActive
+    ? styles.firstActive
+    : styles.firstInactive;
+
+  const getSecondTheme = switchActive
+    ? styles.secondActive
+    : styles.secondInactive;
+
+  const isDisabled = switchActive ? false : true;
+
+  const switchHandle = () => {
+    setSwitchActive((prev) => !prev);
+  };
 
   const textboxHandle = () => {};
 
@@ -16,14 +31,16 @@ const IndexPage: React.FC<PageProps> = () => {
 
   const firstDynamicClasses = [
     styles.first,
-    styles.firstActive,
+    // styles.firstActive,
     // styles.firstInactive,
+    getFirstTheme,
   ].join(" ");
 
   const secondDynamicClasses = [
     styles.second,
-    styles.secondActive,
+    // styles.secondActive,
     // styles.secondInactive,
+    getSecondTheme,
   ].join(" ");
 
   return (
@@ -59,7 +76,7 @@ const IndexPage: React.FC<PageProps> = () => {
                 type={"text"}
                 label={"Name"}
                 placeholder={"e.g. Richard Parker"}
-                disabled={true}
+                disabled={isDisabled}
               />
               <TextField
                 id={"email"}
@@ -69,7 +86,7 @@ const IndexPage: React.FC<PageProps> = () => {
                 type={"text"}
                 label={"Email"}
                 placeholder={"e.g. richard@gmail.com"}
-                disabled={true}
+                disabled={isDisabled}
               />
             </div>
             <div className={styles.policyWrapper}>
@@ -78,7 +95,7 @@ const IndexPage: React.FC<PageProps> = () => {
                 name={"checbox"}
                 checked={true}
                 onChange={checkboxHandle}
-                disabled={true}
+                disabled={isDisabled}
               />
               <p>I have read and accept the &nbsp;</p>
               <Link
@@ -91,7 +108,7 @@ const IndexPage: React.FC<PageProps> = () => {
               </Link>
             </div>
             <div className={styles.buttonWrapper}>
-              <Button onClick={buttonHandle} disabled={true}>
+              <Button onClick={buttonHandle} disabled={isDisabled}>
                 Sign me up!
               </Button>
             </div>
