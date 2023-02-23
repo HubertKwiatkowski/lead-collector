@@ -17,7 +17,7 @@ const IndexPage: React.FC<PageProps> = () => {
     ? styles.secondActive
     : styles.secondInactive;
 
-  const isDisabled = switchActive ? false : true;
+  const isDisabled = !switchActive;
 
   const switchHandle = () => {
     setSwitchActive((prev) => !prev);
@@ -29,19 +29,9 @@ const IndexPage: React.FC<PageProps> = () => {
 
   const buttonHandle = () => {};
 
-  const firstDynamicClasses = [
-    styles.first,
-    // styles.firstActive,
-    // styles.firstInactive,
-    getFirstTheme,
-  ].join(" ");
+  const firstDynamicClasses = [styles.first, getFirstTheme].join(" ");
 
-  const secondDynamicClasses = [
-    styles.second,
-    // styles.secondActive,
-    // styles.secondInactive,
-    getSecondTheme,
-  ].join(" ");
+  const secondDynamicClasses = [styles.second, getSecondTheme].join(" ");
 
   return (
     <main className={styles.mainWrapper}>
