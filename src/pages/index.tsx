@@ -57,6 +57,12 @@ const IndexPage: React.FC<PageProps> = () => {
 
   const isDisabled = !switchActive;
 
+  const nameError = switchActive ? errors.name?.message : "";
+
+  const emailError = switchActive ? errors.email?.message : "";
+
+  const checkboxError = switchActive ? errors.checkbox?.message : "";
+
   const switchHandle = () => {
     setSwitchActive((prev) => !prev);
   };
@@ -106,7 +112,7 @@ const IndexPage: React.FC<PageProps> = () => {
                     label={"Name"}
                     placeholder={"e.g. Richard Parker"}
                     disabled={isDisabled}
-                    error={errors.name?.message}
+                    error={nameError}
                   />
                 )}
               />
@@ -121,7 +127,7 @@ const IndexPage: React.FC<PageProps> = () => {
                     label={"Email"}
                     placeholder={"e.g. richard@gmail.com"}
                     disabled={isDisabled}
-                    error={errors.email?.message}
+                    error={emailError}
                   />
                 )}
               />
@@ -139,7 +145,7 @@ const IndexPage: React.FC<PageProps> = () => {
                     label={"I have read and accept the"}
                     checked={false}
                     disabled={isDisabled}
-                    error={errors.checkbox?.message}
+                    error={checkboxError}
                   />
                 )}
               />
