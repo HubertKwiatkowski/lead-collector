@@ -1,13 +1,18 @@
 import * as React from "react";
 import { useState } from "react";
 import type { HeadFC, PageProps } from "gatsby";
-import { Container, OneColumn, OneRow } from "../components/";
 import { Button, Checkbox, Link, Switch, TextField } from "nerdux-ui-system";
+import { useForm } from "react-hook-form";
+import { Container, OneColumn, OneRow } from "../components/";
 
 import * as styles from "./index.module.scss";
 
 const IndexPage: React.FC<PageProps> = () => {
   const [switchActive, setSwitchActive] = useState(false);
+  const [nameValue, setNameValue] = useState("");
+  const [emailValue, setEmailValue] = useState("");
+
+  const { register, handleSubmit } = useForm();
 
   const getFirstTheme = switchActive
     ? styles.firstActive
@@ -23,7 +28,12 @@ const IndexPage: React.FC<PageProps> = () => {
     setSwitchActive((prev) => !prev);
   };
 
-  const textboxHandle = () => {};
+  const nameHandle = (e) => {
+    setNameValue(e.target.nameValue);
+    console.log(e.target.nameValue);
+  };
+
+  const emailHandle = (e) => setEmailValue(e.target.emailValue);
 
   const checkboxHandle = () => {};
 
@@ -56,13 +66,19 @@ const IndexPage: React.FC<PageProps> = () => {
             <Switch onChange={switchHandle} id={"switch"} />
           </div>
 
-          <form className={styles.formWrapper} action="">
+          <form
+            className={styles.formWrapper}
+            onSubmit={handleSubmit((data) => {
+              console.log(data);
+            })}
+          >
             <div className={styles.inputWrapper}>
               <TextField
                 id={"name"}
-                name={"name"}
-                onChange={textboxHandle}
-                value={""}
+                // {...register("name", {required: true, minLength: 4 })}
+                {...register("name")}
+                onChange={nameHandle}
+                value={nameValue}
                 type={"text"}
                 label={"Name"}
                 placeholder={"e.g. Richard Parker"}
@@ -70,9 +86,10 @@ const IndexPage: React.FC<PageProps> = () => {
               />
               <TextField
                 id={"email"}
-                name={"email"}
-                onChange={textboxHandle}
-                value={""}
+                // {...register("emailValue", {required: true })}
+                {...register("email")}
+                onChange={emailHandle}
+                value={emailValue}
                 type={"text"}
                 label={"Email"}
                 placeholder={"e.g. richard@gmail.com"}
@@ -82,7 +99,7 @@ const IndexPage: React.FC<PageProps> = () => {
             <div className={styles.policyWrapper}>
               <Checkbox
                 id={"checbox"}
-                name={"checbox"}
+                {...register("checbox")}
                 checked={true}
                 onChange={checkboxHandle}
                 disabled={isDisabled}
@@ -98,7 +115,11 @@ const IndexPage: React.FC<PageProps> = () => {
               </Link>
             </div>
             <div className={styles.buttonWrapper}>
-              <Button onClick={buttonHandle} disabled={isDisabled}>
+              <Button
+                type="submit"
+                onClick={buttonHandle}
+                disabled={isDisabled}
+              >
                 Sign me up!
               </Button>
             </div>
