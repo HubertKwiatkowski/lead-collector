@@ -156,11 +156,6 @@ body {
   padding-block: 10px;
   margin-bottom: 16px;
 
-  // for some reason this doesn't not work on my side
-  // > * {
-  //   width: 100%;
-  // }
-
   input {
     width: 360px;
   }
@@ -180,6 +175,11 @@ body {
   margin-left: 10px;
   font-size: 14px;
   line-height: 20px;
+}
+
+.policyText {
+  display: flex;
+  flex-direction: row;
 }
 
 .buttonWrapper {

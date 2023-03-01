@@ -1,13 +1,52 @@
 import * as React from "react";
 import { useState } from "react";
 import type { HeadFC, PageProps } from "gatsby";
-import { Container, OneColumn, OneRow } from "../components/";
 import { Button, Checkbox, Link, Switch, TextField } from "nerdux-ui-system";
+import { useForm, Controller, SubmitHandler } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
+import { Container, OneColumn, OneRow } from "../components/";
 
 import * as styles from "./index.module.scss";
+import { spawn } from "child_process";
+
+interface IFormInputs {
+  name: string;
+  email: string;
+  checkbox: boolean;
+}
+
+const schema = yup.object().shape({
+  name: yup
+    .string()
+    .required("Name is required")
+    .min(2, "Name should be at least 2 signs long"),
+  email: yup
+    .string()
+    .required("Email address is required")
+    .email("Please, enter a valid email address"),
+  checkbox: yup.boolean().oneOf([true], "Please, accept our privacy policy"),
+});
 
 const IndexPage: React.FC<PageProps> = () => {
   const [switchActive, setSwitchActive] = useState(false);
+
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    defaultValues: {
+      name: "",
+      email: "",
+      checkbox: false,
+    },
+    resolver: yupResolver(schema),
+  });
+
+  const onSubmit: SubmitHandler<IFormInputs> = (data) => {
+    console.log(data);
+  };
 
   const getFirstTheme = switchActive
     ? styles.firstActive
@@ -19,13 +58,15 @@ const IndexPage: React.FC<PageProps> = () => {
 
   const isDisabled = !switchActive;
 
+  const nameError = switchActive ? errors.name?.message : "";
+
+  const emailError = switchActive ? errors.email?.message : "";
+
+  const checkboxError = switchActive ? errors.checkbox?.message : "";
+
   const switchHandle = () => {
     setSwitchActive((prev) => !prev);
   };
-
-  const textboxHandle = () => {};
-
-  const checkboxHandle = () => {};
 
   const buttonHandle = () => {};
 
@@ -56,49 +97,79 @@ const IndexPage: React.FC<PageProps> = () => {
             <Switch onChange={switchHandle} id={"switch"} />
           </div>
 
-          <form className={styles.formWrapper} action="">
+          <form
+            className={styles.formWrapper}
+            onSubmit={handleSubmit(onSubmit)}
+          >
             <div className={styles.inputWrapper}>
-              <TextField
-                id={"name"}
-                name={"name"}
-                onChange={textboxHandle}
-                value={""}
-                type={"text"}
-                label={"Name"}
-                placeholder={"e.g. Richard Parker"}
-                disabled={isDisabled}
+              <Controller
+                name="name"
+                control={control}
+                render={({ field }) => (
+                  <TextField
+                    {...field}
+                    id={"name"}
+                    type={"text"}
+                    label={"Name"}
+                    placeholder={"e.g. Richard Parker"}
+                    disabled={isDisabled}
+                    error={nameError}
+                  />
+                )}
               />
-              <TextField
-                id={"email"}
-                name={"email"}
-                onChange={textboxHandle}
-                value={""}
-                type={"text"}
-                label={"Email"}
-                placeholder={"e.g. richard@gmail.com"}
-                disabled={isDisabled}
+              <Controller
+                name="email"
+                control={control}
+                render={({ field }) => (
+                  <TextField
+                    {...field}
+                    id={"email"}
+                    type={"text"}
+                    label={"Email"}
+                    placeholder={"e.g. richard@gmail.com"}
+                    disabled={isDisabled}
+                    error={emailError}
+                  />
+                )}
               />
             </div>
             <div className={styles.policyWrapper}>
-              <Checkbox
-                id={"checbox"}
-                name={"checbox"}
-                checked={true}
-                onChange={checkboxHandle}
-                disabled={isDisabled}
+              <Controller
+                name="checkbox"
+                control={control}
+                render={({ field }) => (
+                  <Checkbox
+                    {...field}
+                    id={"checkbox"}
+                    name={"checkbox"}
+                    value={""}
+                    label={
+                      <span className={styles.policyText}>
+                        I have read and accept the&nbsp;
+                        <Link
+                          to={
+                            "https://nerdux.nerdbord.io/?path=/story/inputs-button--button"
+                          }
+                          target={"_blank"}
+                          disabled={isDisabled}
+                        >
+                          privacy policy
+                        </Link>
+                      </span>
+                    }
+                    checked={false}
+                    disabled={isDisabled}
+                    error={checkboxError}
+                  />
+                )}
               />
-              <p>I have read and accept the &nbsp;</p>
-              <Link
-                to={
-                  "https://nerdux.nerdbord.io/?path=/story/inputs-button--button"
-                }
-                target={"_blank"}
-              >
-                privacy policy
-              </Link>
             </div>
             <div className={styles.buttonWrapper}>
-              <Button onClick={buttonHandle} disabled={isDisabled}>
+              <Button
+                type="submit"
+                onClick={buttonHandle}
+                disabled={isDisabled}
+              >
                 Sign me up!
               </Button>
             </div>
