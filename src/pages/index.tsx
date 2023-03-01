@@ -8,6 +8,7 @@ import * as yup from "yup";
 import { Container, OneColumn, OneRow } from "../components/";
 
 import * as styles from "./index.module.scss";
+import { spawn } from "child_process";
 
 interface IFormInputs {
   name: string;
@@ -142,22 +143,26 @@ const IndexPage: React.FC<PageProps> = () => {
                     id={"checkbox"}
                     name={"checkbox"}
                     value={""}
-                    label={"I have read and accept the"}
+                    label={
+                      <span className={styles.policyText}>
+                        I have read and accept the&nbsp;
+                        <Link
+                          to={
+                            "https://nerdux.nerdbord.io/?path=/story/inputs-button--button"
+                          }
+                          target={"_blank"}
+                          disabled={isDisabled}
+                        >
+                          privacy policy
+                        </Link>
+                      </span>
+                    }
                     checked={false}
                     disabled={isDisabled}
                     error={checkboxError}
                   />
                 )}
               />
-              <Link
-                to={
-                  "https://nerdux.nerdbord.io/?path=/story/inputs-button--button"
-                }
-                target={"_blank"}
-                disabled={isDisabled}
-              >
-                &nbsp; privacy policy
-              </Link>
             </div>
             <div className={styles.buttonWrapper}>
               <Button
