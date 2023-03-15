@@ -8,7 +8,6 @@ import * as yup from "yup";
 import { Container, OneColumn, OneRow } from "../components/";
 
 import * as styles from "./index.module.scss";
-import { spawn } from "child_process";
 
 interface IFormInputs {
   name: string;
@@ -31,6 +30,11 @@ const schema = yup.object().shape({
 const IndexPage: React.FC<PageProps> = () => {
   const [switchActive, setSwitchActive] = useState(false);
 
+  const [showMain, setShowMain] = useState(true);
+  const [showSuccess, setShowSuccess] = useState(false);
+  const [userName, setUserName] = useState("");
+  const [userEmail, setUserEmail] = useState("");
+
   const {
     control,
     handleSubmit,
@@ -45,7 +49,10 @@ const IndexPage: React.FC<PageProps> = () => {
   });
 
   const onSubmit: SubmitHandler<IFormInputs> = (data) => {
-    console.log(data);
+    setUserName((prev) => data.name);
+    setUserEmail((prev) => data.email);
+    setShowMain((prev) => !prev);
+    setShowSuccess((prev) => !prev);
   };
 
   const getFirstTheme = switchActive
@@ -84,98 +91,111 @@ const IndexPage: React.FC<PageProps> = () => {
           <OneRow dataMove={"left"}></OneRow>
         </div>
       </aside>
-      <Container>
-        <header className={styles.titleHeader}>
-          <h1>
-            Join the Gameboy <br />
-            <span>waiting list</span>
-          </h1>
-        </header>
-        <section>
-          <div className={styles.switchWrapper}>
-            <p>I swear, I’m a classic gameboy fan&nbsp;</p>
-            <Switch onChange={switchHandle} id={"switch"} />
-          </div>
+      {showMain && (
+        <Container>
+          <header className={styles.titleHeader}>
+            <h1>
+              Join the Gameboy <br />
+              <span>waiting list</span>
+            </h1>
+          </header>
+          <section>
+            <div className={styles.switchWrapper}>
+              <p>I swear, I’m a classic gameboy fan&nbsp;</p>
+              <Switch onChange={switchHandle} id={"switch"} />
+            </div>
 
-          <form
-            className={styles.formWrapper}
-            onSubmit={handleSubmit(onSubmit)}
-          >
-            <div className={styles.inputWrapper}>
-              <Controller
-                name="name"
-                control={control}
-                render={({ field }) => (
-                  <TextField
-                    {...field}
-                    id={"name"}
-                    type={"text"}
-                    label={"Name"}
-                    placeholder={"e.g. Richard Parker"}
-                    disabled={isDisabled}
-                    error={nameError}
-                  />
-                )}
-              />
-              <Controller
-                name="email"
-                control={control}
-                render={({ field }) => (
-                  <TextField
-                    {...field}
-                    id={"email"}
-                    type={"text"}
-                    label={"Email"}
-                    placeholder={"e.g. richard@gmail.com"}
-                    disabled={isDisabled}
-                    error={emailError}
-                  />
-                )}
-              />
-            </div>
-            <div className={styles.policyWrapper}>
-              <Controller
-                name="checkbox"
-                control={control}
-                render={({ field }) => (
-                  <Checkbox
-                    {...field}
-                    id={"checkbox"}
-                    name={"checkbox"}
-                    value={""}
-                    label={
-                      <span className={styles.policyText}>
-                        I have read and accept the&nbsp;
-                        <Link
-                          to={
-                            "https://nerdux.nerdbord.io/?path=/story/inputs-button--button"
-                          }
-                          target={"_blank"}
-                          disabled={isDisabled}
-                        >
-                          privacy policy
-                        </Link>
-                      </span>
-                    }
-                    checked={false}
-                    disabled={isDisabled}
-                    error={checkboxError}
-                  />
-                )}
-              />
-            </div>
-            <div className={styles.buttonWrapper}>
-              <Button
-                type="submit"
-                onClick={buttonHandle}
-                disabled={isDisabled}
-              >
-                Sign me up!
-              </Button>
-            </div>
-          </form>
-        </section>
-      </Container>
+            <form
+              className={styles.formWrapper}
+              onSubmit={handleSubmit(onSubmit)}
+            >
+              <div className={styles.inputWrapper}>
+                <Controller
+                  name="name"
+                  control={control}
+                  render={({ field }) => (
+                    <TextField
+                      {...field}
+                      id={"name"}
+                      type={"text"}
+                      label={"Name"}
+                      placeholder={"e.g. Richard Parker"}
+                      disabled={isDisabled}
+                      error={nameError}
+                    />
+                  )}
+                />
+                <Controller
+                  name="email"
+                  control={control}
+                  render={({ field }) => (
+                    <TextField
+                      {...field}
+                      id={"email"}
+                      type={"text"}
+                      label={"Email"}
+                      placeholder={"e.g. richard@gmail.com"}
+                      disabled={isDisabled}
+                      error={emailError}
+                    />
+                  )}
+                />
+              </div>
+              <div className={styles.policyWrapper}>
+                <Controller
+                  name="checkbox"
+                  control={control}
+                  render={({ field }) => (
+                    <Checkbox
+                      {...field}
+                      id={"checkbox"}
+                      name={"checkbox"}
+                      value={""}
+                      label={
+                        <span className={styles.policyText}>
+                          I have read and accept the&nbsp;
+                          <Link
+                            to={
+                              "https://nerdux.nerdbord.io/?path=/story/inputs-button--button"
+                            }
+                            target={"_blank"}
+                            disabled={isDisabled}
+                          >
+                            privacy policy
+                          </Link>
+                        </span>
+                      }
+                      checked={false}
+                      disabled={isDisabled}
+                      error={checkboxError}
+                    />
+                  )}
+                />
+              </div>
+              <div className={styles.buttonWrapper}>
+                <Button
+                  type="submit"
+                  onClick={buttonHandle}
+                  disabled={isDisabled}
+                >
+                  Sign me up!
+                </Button>
+              </div>
+            </form>
+          </section>
+        </Container>
+      )}
+      {showSuccess && (
+        <Container>
+          <div className={styles.thankYouWrapper}>
+            <h3>Thank you {userName}, for signing up!</h3>
+            <p>
+              On the provided email [{userEmail}], you will receive a message
+              when the Gameboy launches!
+            </p>
+          </div>
+        </Container>
+      )}
       <aside className={secondDynamicClasses}>
         <div className={styles.gameboyColumn}>
           <OneColumn dataMove={"down"}></OneColumn>
