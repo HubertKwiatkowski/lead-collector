@@ -6,6 +6,8 @@ import { useForm, Controller, SubmitHandler } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { Container, OneColumn, OneRow } from "../components/";
+import { Error } from "../icons/Error";
+import { Arrow } from "../icons/Arrow";
 
 import * as styles from "./index.module.scss";
 
@@ -31,6 +33,7 @@ const IndexPage: React.FC<PageProps> = () => {
   const [switchActive, setSwitchActive] = useState(false);
 
   const [showInContainer, setContainer] = useState("showForm");
+  const [error5xx, setError5xx] = useState("");
   const [userName, setUserName] = useState("");
   const [userEmail, setUserEmail] = useState("");
 
@@ -48,22 +51,9 @@ const IndexPage: React.FC<PageProps> = () => {
   });
 
   const onSubmit: SubmitHandler<IFormInputs> = (data) => {
+    setError5xx("");
     setUserName((prev) => data.name);
     setUserEmail((prev) => data.email);
-    // const checkbox = data.checkbox
-    //
-    // console.log(setUserName)
-    // console.log(setUserEmail)
-    // console.log(checkbox)
-    //
-    //
-    // const sentData = { setUserName, setUserEmail, checkbox }
-
-    // setShowMain((prev) => !prev);
-    // setShowSuccess((prev) => !prev);
-    // console.log(sentData)
-    // console.log(typeof(JSON.stringify(data)))
-
     fetch("http://139.59.154.199:49160/api/v1/leads", {
       method: "POST",
       headers: {
@@ -80,7 +70,7 @@ const IndexPage: React.FC<PageProps> = () => {
         }
       })
       .catch((error) => {
-        // setContainer('showFail')
+        setError5xx(error);
         console.error("Error", error);
       });
   };
@@ -134,7 +124,12 @@ const IndexPage: React.FC<PageProps> = () => {
               <p>I swear, I’m a classic gameboy fan&nbsp;</p>
               <Switch onChange={switchHandle} id="switch" />
             </div>
-
+            {error5xx !== "" && (
+              <div className={styles.error5xx}>
+                <Error />
+                <p>{error5xx}</p>
+              </div>
+            )}
             <form
               className={styles.formWrapper}
               onSubmit={handleSubmit(onSubmit)}
@@ -232,6 +227,11 @@ const IndexPage: React.FC<PageProps> = () => {
             <h3>Something went wrong.</h3>
             <div>
               <Button
+                disabled={false}
+                type={"button"}
+                icon={<Arrow />}
+                variant={"primary"}
+                isLoading={false}
                 onClick={() => {
                   setContainer("showForm");
                 }}

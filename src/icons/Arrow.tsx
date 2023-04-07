@@ -1,6 +1,6 @@
 import * as React from "react";
 
-export const Gameboy = () => (
+export const Arrow = () => (
   <svg
     width="12"
     height="12"

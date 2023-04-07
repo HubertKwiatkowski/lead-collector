@@ -1,6 +1,6 @@
 import * as React from "react";
 
-export const Gameboy = () => (
+export const Error = () => (
   <svg
     width="24"
     height="24"
