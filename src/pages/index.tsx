@@ -30,8 +30,7 @@ const schema = yup.object().shape({
 const IndexPage: React.FC<PageProps> = () => {
   const [switchActive, setSwitchActive] = useState(false);
 
-  const [showMain, setShowMain] = useState(true);
-  const [showSuccess, setShowSuccess] = useState(false);
+  const [showInContainer, setContainer] = useState("showForm");
   const [userName, setUserName] = useState("");
   const [userEmail, setUserEmail] = useState("");
 
@@ -51,8 +50,39 @@ const IndexPage: React.FC<PageProps> = () => {
   const onSubmit: SubmitHandler<IFormInputs> = (data) => {
     setUserName((prev) => data.name);
     setUserEmail((prev) => data.email);
-    setShowMain((prev) => !prev);
-    setShowSuccess((prev) => !prev);
+    // const checkbox = data.checkbox
+    //
+    // console.log(setUserName)
+    // console.log(setUserEmail)
+    // console.log(checkbox)
+    //
+    //
+    // const sentData = { setUserName, setUserEmail, checkbox }
+
+    // setShowMain((prev) => !prev);
+    // setShowSuccess((prev) => !prev);
+    // console.log(sentData)
+    // console.log(typeof(JSON.stringify(data)))
+
+    fetch("http://139.59.154.199:49160/api/v1/leads", {
+      method: "POST",
+      headers: {
+        Authorization: "secret_token",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    })
+      .then((response) => {
+        if (response.ok) {
+        } else if (response.status >= 400 && response.status < 500) {
+          setContainer("showError");
+          console.log(response.statusText);
+        }
+      })
+      .catch((error) => {
+        // setContainer('showFail')
+        console.error("Error", error);
+      });
   };
 
   const getFirstTheme = switchActive
@@ -91,7 +121,7 @@ const IndexPage: React.FC<PageProps> = () => {
           <OneRow dataMove={"left"}></OneRow>
         </div>
       </aside>
-      {showMain && (
+      {showInContainer === "showForm" && (
         <Container>
           <header className={styles.titleHeader}>
             <h1>
@@ -102,7 +132,7 @@ const IndexPage: React.FC<PageProps> = () => {
           <section>
             <div className={styles.switchWrapper}>
               <p>I swear, I’m a classic gameboy fan&nbsp;</p>
-              <Switch onChange={switchHandle} id={"switch"} />
+              <Switch onChange={switchHandle} id="switch" />
             </div>
 
             <form
@@ -185,7 +215,7 @@ const IndexPage: React.FC<PageProps> = () => {
           </section>
         </Container>
       )}
-      {showSuccess && (
+      {showInContainer === "formSubmitted" && (
         <Container>
           <div className={styles.thankYouWrapper}>
             <h3>Thank you {userName}, for signing up!</h3>
@@ -196,6 +226,23 @@ const IndexPage: React.FC<PageProps> = () => {
           </div>
         </Container>
       )}
+      {showInContainer === "showError" && (
+        <Container>
+          <div className={styles.thankYouWrapper}>
+            <h3>Something went wrong.</h3>
+            <div>
+              <Button
+                onClick={() => {
+                  setContainer("showForm");
+                }}
+              >
+                Try again
+              </Button>
+            </div>
+          </div>
+        </Container>
+      )}
+
       <aside className={secondDynamicClasses}>
         <div className={styles.gameboyColumn}>
           <OneColumn dataMove={"down"}></OneColumn>
