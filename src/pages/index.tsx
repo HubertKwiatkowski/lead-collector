@@ -11,6 +11,8 @@ import { Arrow } from "../icons/Arrow";
 
 import * as styles from "./index.module.scss";
 
+const secretToken = "secret_token";
+
 interface IFormInputs {
   name: string;
   email: string;
@@ -33,7 +35,7 @@ const IndexPage: React.FC<PageProps> = () => {
   const [switchActive, setSwitchActive] = useState(false);
 
   const [showInContainer, setContainer] = useState("showForm");
-  const [error5xx, setError5xx] = useState("");
+  const [errorMessage, seterrorMessage] = useState("");
   const [userName, setUserName] = useState("");
   const [userEmail, setUserEmail] = useState("");
 
@@ -51,13 +53,13 @@ const IndexPage: React.FC<PageProps> = () => {
   });
 
   const onSubmit: SubmitHandler<IFormInputs> = (data) => {
-    setError5xx("");
+    seterrorMessage("");
     setUserName((prev) => data.name);
     setUserEmail((prev) => data.email);
     fetch("http://139.59.154.199:49160/api/v1/leads", {
       method: "POST",
       headers: {
-        Authorization: "secret_token",
+        Authorization: secretToken,
         "Content-Type": "application/json",
       },
       body: JSON.stringify(data),
@@ -66,12 +68,10 @@ const IndexPage: React.FC<PageProps> = () => {
         if (response.ok) {
         } else if (response.status >= 400 && response.status < 500) {
           setContainer("showError");
-          console.log(response.statusText);
         }
       })
       .catch((error) => {
-        setError5xx(error);
-        console.error("Error", error);
+        seterrorMessage(error);
       });
   };
 
@@ -124,10 +124,10 @@ const IndexPage: React.FC<PageProps> = () => {
               <p>I swear, I’m a classic gameboy fan&nbsp;</p>
               <Switch onChange={switchHandle} id="switch" />
             </div>
-            {error5xx !== "" && (
-              <div className={styles.error5xx}>
+            {errorMessage !== "" && (
+              <div className={styles.errorMessage}>
                 <Error />
-                <p>{error5xx}</p>
+                <p>{errorMessage}</p>
               </div>
             )}
             <form
