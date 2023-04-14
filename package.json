@@ -15,7 +15,7 @@
     "clean": "gatsby clean",
     "typecheck": "tsc --noEmit",
     "prepare": "husky install",
-    "test": "jarn src",
+    "test": "jest src"
   },
   "dependencies": {
     "@hookform/resolvers": "^2.9.11",
