@@ -35,7 +35,7 @@ const IndexPage: React.FC<PageProps> = () => {
   const [switchActive, setSwitchActive] = useState(false);
 
   const [showInContainer, setContainer] = useState("showForm");
-  const [errorMessage, seterrorMessage] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
   const [userName, setUserName] = useState("");
   const [userEmail, setUserEmail] = useState("");
 
@@ -53,9 +53,9 @@ const IndexPage: React.FC<PageProps> = () => {
   });
 
   const onSubmit: SubmitHandler<IFormInputs> = (data) => {
-    seterrorMessage("");
-    setUserName((prev) => data.name);
-    setUserEmail((prev) => data.email);
+    setErrorMessage("");
+    setUserName(() => data.name);
+    setUserEmail(() => data.email);
     fetch("http://139.59.154.199:49160/api/v1/leads", {
       method: "POST",
       headers: {
@@ -71,7 +71,7 @@ const IndexPage: React.FC<PageProps> = () => {
         }
       })
       .catch((error) => {
-        seterrorMessage(error);
+        setErrorMessage(error);
       });
   };
 

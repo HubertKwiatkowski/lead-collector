@@ -1,5 +1,4 @@
 .gameboy {
-  width: 156px;
   height: 160px;
   position: relative;
 }
@@ -7,6 +6,8 @@
 .gameboy svg {
   display: none;
   position: absolute;
+  width: 200vw;
+  height: 160px;
 
   @media only screen and (max-width: 768px) {
     display: block;
@@ -15,15 +16,14 @@
 
 .startLeft svg {
   top: 10px;
-  left: -200vw;
+  left: -100vw;
   -webkit-animation: startLeft 6s 1ms linear infinite alternate both;
   animation: startLeft 6s 1ms linear infinite alternate both;
 }
 
 .startRight svg {
-  // bottom: -15px;
   bottom: -5px;
-  left: -200vw;
+  left: -100vw;
   -webkit-animation: startRight 6s 1ms linear infinite alternate both;
   animation: startRight 6s 1ms linear infinite alternate both;
 }
