@@ -1,6 +1,6 @@
 import * as React from "react";
 import { useState } from "react";
-import type { HeadFC, PageProps } from "gatsby";
+import { HeadFC, PageProps } from "gatsby";
 import { Button, Checkbox, Link, Switch, TextField } from "nerdux-ui-system";
 import { useForm, Controller, SubmitHandler } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -28,16 +28,18 @@ const schema = yup.object().shape({
     .string()
     .required("Email address is required")
     .email("Please, enter a valid email address"),
-  checkbox: yup.boolean().oneOf([true], "Please, accept our privacy policy"),
+  checkbox: yup.bool().oneOf([true], "Please, accept our privacy policy"),
 });
 
 const IndexPage: React.FC<PageProps> = () => {
   const [switchActive, setSwitchActive] = useState(false);
+  const [submitActive, setSubmitActive] = useState(true);
 
   const [showInContainer, setContainer] = useState("showForm");
   const [errorMessage, setErrorMessage] = useState("");
   const [userName, setUserName] = useState("");
   const [userEmail, setUserEmail] = useState("");
+  const [checkedPolicy, setCheckedPolicy] = useState(false);
 
   const {
     control,
@@ -96,6 +98,10 @@ const IndexPage: React.FC<PageProps> = () => {
   };
 
   const buttonHandle = () => {};
+
+  const handleCheckboxChange = () => {
+    setSubmitActive((prev) => !prev);
+  };
 
   const firstDynamicClasses = [styles.first, getFirstTheme].join(" ");
 
@@ -193,6 +199,7 @@ const IndexPage: React.FC<PageProps> = () => {
                       checked={false}
                       disabled={isDisabled}
                       error={checkboxError}
+                      onChange={handleCheckboxChange}
                     />
                   )}
                 />
@@ -201,7 +208,7 @@ const IndexPage: React.FC<PageProps> = () => {
                 <Button
                   type="submit"
                   onClick={buttonHandle}
-                  disabled={isDisabled}
+                  disabled={submitActive}
                 >
                   Sign me up!
                 </Button>
@@ -257,7 +264,6 @@ const IndexPage: React.FC<PageProps> = () => {
     </main>
   );
 };
-
 export default IndexPage;
 
 export const Head: HeadFC = () => <title>Gameboy Classic</title>;
