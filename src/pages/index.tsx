@@ -28,10 +28,10 @@ const schema = yup.object().shape({
     .string()
     .required("Email address is required")
     .email("Please, enter a valid email address"),
-  checkbox: yup.bool().oneOf([true], "Please, accept our privacy policy"),
+  checkbox: yup.bool().oneOf([false], "Please, accept our privacy policy"),
 });
 
-const IndexPage: React.FC<PageProps> = () => {
+function IndexPage() {
   const [switchActive, setSwitchActive] = useState(false);
   const [submitActive, setSubmitActive] = useState(true);
 
@@ -68,6 +68,7 @@ const IndexPage: React.FC<PageProps> = () => {
     })
       .then((response) => {
         if (response.ok) {
+          setContainer("formSubmitted");
         } else if (response.status >= 400 && response.status < 500) {
           setContainer("showError");
         }
@@ -182,6 +183,10 @@ const IndexPage: React.FC<PageProps> = () => {
                       id={"checkbox"}
                       name={"checkbox"}
                       value={""}
+                      checked={false}
+                      disabled={isDisabled}
+                      error={checkboxError}
+                      onChange={handleCheckboxChange}
                       label={
                         <span className={styles.policyText}>
                           I have read and accept the&nbsp;
@@ -196,10 +201,6 @@ const IndexPage: React.FC<PageProps> = () => {
                           </Link>
                         </span>
                       }
-                      checked={false}
-                      disabled={isDisabled}
-                      error={checkboxError}
-                      onChange={handleCheckboxChange}
                     />
                   )}
                 />
@@ -209,6 +210,7 @@ const IndexPage: React.FC<PageProps> = () => {
                   type="submit"
                   onClick={buttonHandle}
                   disabled={submitActive}
+                  variant={"primary"}
                 >
                   Sign me up!
                 </Button>
@@ -235,7 +237,7 @@ const IndexPage: React.FC<PageProps> = () => {
             <div>
               <Button
                 disabled={false}
-                type={"button"}
+                type="button"
                 icon={<Arrow />}
                 variant={"primary"}
                 isLoading={false}
@@ -263,7 +265,7 @@ const IndexPage: React.FC<PageProps> = () => {
       </aside>
     </main>
   );
-};
+}
 export default IndexPage;
 
 export const Head: HeadFC = () => <title>Gameboy Classic</title>;
