@@ -2,10 +2,6 @@
   width: 130px;
   position: relative;
 
-  @media only screen and (min-width: 1440px) {
-    //width: 156px;
-  }
-
   @media only screen and (max-width: 1240px) {
     width: 120px;
   }
@@ -17,6 +13,8 @@
 }
 
 .gameboy svg {
+  width: 156px;
+  height: 200vh;
   position: absolute;
   right: -25px;
 }

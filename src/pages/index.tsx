@@ -1,6 +1,6 @@
 import * as React from "react";
 import { useState } from "react";
-import type { HeadFC, PageProps } from "gatsby";
+import { HeadFC, PageProps } from "gatsby";
 import { Button, Checkbox, Link, Switch, TextField } from "nerdux-ui-system";
 import { useForm, Controller, SubmitHandler } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -28,16 +28,18 @@ const schema = yup.object().shape({
     .string()
     .required("Email address is required")
     .email("Please, enter a valid email address"),
-  checkbox: yup.boolean().oneOf([true], "Please, accept our privacy policy"),
+  checkbox: yup.bool().oneOf([false], "Please, accept our privacy policy"),
 });
 
-const IndexPage: React.FC<PageProps> = () => {
+function IndexPage() {
   const [switchActive, setSwitchActive] = useState(false);
+  const [submitActive, setSubmitActive] = useState(true);
 
   const [showInContainer, setContainer] = useState("showForm");
-  const [errorMessage, seterrorMessage] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
   const [userName, setUserName] = useState("");
   const [userEmail, setUserEmail] = useState("");
+  const [checkedPolicy, setCheckedPolicy] = useState(false);
 
   const {
     control,
@@ -53,9 +55,9 @@ const IndexPage: React.FC<PageProps> = () => {
   });
 
   const onSubmit: SubmitHandler<IFormInputs> = (data) => {
-    seterrorMessage("");
-    setUserName((prev) => data.name);
-    setUserEmail((prev) => data.email);
+    setErrorMessage("");
+    setUserName(() => data.name);
+    setUserEmail(() => data.email);
     fetch("http://139.59.154.199:49160/api/v1/leads", {
       method: "POST",
       headers: {
@@ -66,12 +68,13 @@ const IndexPage: React.FC<PageProps> = () => {
     })
       .then((response) => {
         if (response.ok) {
+          setContainer("formSubmitted");
         } else if (response.status >= 400 && response.status < 500) {
           setContainer("showError");
         }
       })
       .catch((error) => {
-        seterrorMessage(error);
+        setErrorMessage(error);
       });
   };
 
@@ -96,6 +99,10 @@ const IndexPage: React.FC<PageProps> = () => {
   };
 
   const buttonHandle = () => {};
+
+  const handleCheckboxChange = () => {
+    setSubmitActive((prev) => !prev);
+  };
 
   const firstDynamicClasses = [styles.first, getFirstTheme].join(" ");
 
@@ -176,6 +183,10 @@ const IndexPage: React.FC<PageProps> = () => {
                       id={"checkbox"}
                       name={"checkbox"}
                       value={""}
+                      checked={false}
+                      disabled={isDisabled}
+                      error={checkboxError}
+                      onChange={handleCheckboxChange}
                       label={
                         <span className={styles.policyText}>
                           I have read and accept the&nbsp;
@@ -190,9 +201,6 @@ const IndexPage: React.FC<PageProps> = () => {
                           </Link>
                         </span>
                       }
-                      checked={false}
-                      disabled={isDisabled}
-                      error={checkboxError}
                     />
                   )}
                 />
@@ -201,7 +209,8 @@ const IndexPage: React.FC<PageProps> = () => {
                 <Button
                   type="submit"
                   onClick={buttonHandle}
-                  disabled={isDisabled}
+                  disabled={submitActive}
+                  variant={"primary"}
                 >
                   Sign me up!
                 </Button>
@@ -228,7 +237,7 @@ const IndexPage: React.FC<PageProps> = () => {
             <div>
               <Button
                 disabled={false}
-                type={"button"}
+                type="button"
                 icon={<Arrow />}
                 variant={"primary"}
                 isLoading={false}
@@ -256,8 +265,7 @@ const IndexPage: React.FC<PageProps> = () => {
       </aside>
     </main>
   );
-};
-
+}
 export default IndexPage;
 
 export const Head: HeadFC = () => <title>Gameboy Classic</title>;
